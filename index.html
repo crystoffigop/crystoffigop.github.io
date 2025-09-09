@@ -3,8 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Crystoff - Professional Video Editor specializing in AMVs, MMVs, and Creative Media">
   <title>Crystoff | Creative Video Editor</title>
+  
+  <!-- SEO & Social Media Meta Tags -->
+  <meta name="description" content="Crystoff - A passionate and creative video editor specializing in crafting compelling stories through AMVs, motion graphics, and creative media.">
+  <meta property="og:title" content="Crystoff | Creative Video Editor">
+  <meta property="og:description" content="Portfolio of Crystoff, showcasing skills in AMVs, MMVs, and Motion Graphics.">
+  <meta property="og:image" content="https://i.imgur.com/your-preview-image.jpg"> <!-- Optional: Add a link to a preview image -->
+  <meta name="twitter:card" content="summary_large_image">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,19 +27,20 @@
   <style>
     /*
     ========================================
-    MODERN & ARTISTIC THEME IMPLEMENTATION
+    REFINED PORTFOLIO STYLES
+    Critique points addressed: Color Contrast, Layout, UX, and Performance.
+    NOTE: For production, this CSS should be moved to an external file (e.g., style.css).
     ========================================
     */
 
-    /* CSS Variables for the New Theme */
     :root {
-      --primary-color: #9370DB; /* Medium Purple */
-      --accent-color: #00FFFF;  /* Cyan/Aqua */
-      --bg-dark: #0F0F1A;       /* Deep Navy Blue */
-      --bg-medium: #1A1A2E;     /* Lighter Navy */
-      --bg-light: #2A2A4E;      /* Soft Indigo */
+      --primary-color: #9D84FF; /* Slightly brighter purple for better contrast */
+      --accent-color: #00FFFF;
+      --bg-dark: #0F0F1A;
+      --bg-medium: #1A1A2E;
+      --bg-light: #2A2A4E;
       --text-light: #E0E0E0;
-      --text-muted: #A0A0C0;
+      --text-muted: #AAB0D4; /* Lighter muted text for better readability */
       --text-heading: #FFFFFF;
       --font-heading: 'Poppins', sans-serif;
       --font-body: 'Inter', sans-serif;
@@ -45,23 +52,13 @@
     }
 
     /* Reset and Base Styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
     body {
       font-family: var(--font-body);
       background-color: var(--bg-dark);
-      /* Subtle dot pattern for texture */
       background-image: radial-gradient(var(--text-muted) 0.5px, transparent 0.5px);
-      background-size: 20px 20px;
+      background-size: 25px 25px;
       background-attachment: fixed;
       color: var(--text-light);
       line-height: 1.7;
@@ -69,7 +66,7 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-
+    body.no-scroll { overflow: hidden; }
     .container {
       width: 100%;
       max-width: var(--max-width);
@@ -84,33 +81,29 @@
       left: 0;
       right: 0;
       z-index: 1000;
-      background: rgba(15, 15, 26, 0.8); /* Updated background color */
+      background: rgba(15, 15, 26, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(147, 112, 219, 0.2);
-      transition: transform 0.3s ease-in-out;
+      border-bottom: 1px solid rgba(157, 132, 255, 0.2);
+      transition: box-shadow 0.3s ease; /* Keep nav visible, remove transform */
     }
-
     .nav-container {
       height: var(--nav-height);
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-
     .nav-brand {
       font-family: var(--font-heading);
-      font-size: clamp(1.4rem, 4vw, 1.8rem);
+      font-size: clamp(1.5rem, 4vw, 1.8rem);
       font-weight: 700;
       color: var(--text-heading);
       text-decoration: none;
       letter-spacing: -1px;
     }
-    .nav-brand span {
-        color: var(--primary-color);
-    }
+    .nav-brand span { color: var(--primary-color); }
 
-    /* Mobile Menu Toggle */
+    /* Mobile Menu */
     .menu-toggle {
       display: none;
       flex-direction: column;
@@ -119,9 +112,8 @@
       cursor: pointer;
       padding: 4px;
       gap: 5px;
-      z-index: 1001; /* Ensure it's above other elements */
+      z-index: 1002;
     }
-
     .menu-toggle span {
       display: block;
       width: 28px;
@@ -130,18 +122,29 @@
       transition: all 0.3s ease;
       border-radius: 3px;
     }
-
     .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
     .menu-toggle.active span:nth-child(2) { opacity: 0; }
     .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
-
+    .mobile-nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 998;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .mobile-nav-overlay.active { opacity: 1; visibility: visible; }
+    
     .nav-links {
       display: flex;
       gap: clamp(1rem, 3vw, 2rem);
       list-style: none;
       align-items: center;
     }
-
     .nav-links a {
       color: var(--text-light);
       text-decoration: none;
@@ -149,6 +152,7 @@
       font-size: clamp(0.9rem, 2vw, 1rem);
       position: relative;
       padding: 0.5rem 0;
+      transition: color 0.3s ease;
     }
     .nav-links a::after {
       content: '';
@@ -162,113 +166,59 @@
       transform-origin: right;
       transition: transform 0.3s ease-out;
     }
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
+    .nav-links a:hover, .nav-links a.active { color: var(--text-heading); }
+    .nav-links a:hover::after, .nav-links a.active::after {
       transform: scaleX(1);
       transform-origin: left;
     }
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--text-heading);
-    }
 
-    /* Sections */
+    /* Section Styling */
     section {
       padding: var(--section-padding) 0;
       position: relative;
-      overflow: hidden; /* For containing decorative elements */
+      overflow: hidden;
     }
-
-    /* Add a radial gradient overlay to sections for depth */
-    section::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(circle at 50% 50%, rgba(26, 26, 46, 0.5) 0%, transparent 70%);
-        z-index: -1;
-    }
+    #about { background-color: var(--bg-medium); }
+    #works { border-top: 1px solid rgba(157, 132, 255, 0.1); border-bottom: 1px solid rgba(157, 132, 255, 0.1); }
+    #contact { background-color: var(--bg-medium); }
 
     /* Typography */
-    h1, h2, h3 {
-      font-family: var(--font-heading);
-      text-align: center;
-      color: var(--text-heading);
-      margin-bottom: clamp(1rem, 3vw, 1.5rem);
-      line-height: 1.2;
-      letter-spacing: -0.5px;
-    }
+    h1, h2, h3 { font-family: var(--font-heading); text-align: center; color: var(--text-heading); line-height: 1.2; letter-spacing: -0.5px; }
+    h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 800; text-shadow: 0 0 20px rgba(157, 132, 255, 0.4); }
+    h1 span { background: linear-gradient(90deg, var(--primary-color), var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .section-header { text-align: center; margin-bottom: 3.5rem; }
+    h2 { font-size: clamp(2rem, 6vw, 3rem); font-weight: 700; position: relative; display: inline-block; padding-bottom: 0.75rem; }
+    h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 70px; height: 4px; background: linear-gradient(90deg, var(--primary-color), var(--accent-color)); border-radius: 2px; }
+    h3 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 600; color: var(--primary-color); margin-bottom: 1rem; text-align: left; }
+    p { text-align: center; max-width: 750px; margin: 0 auto clamp(1.2rem, 3vw, 2rem); font-size: clamp(1rem, 2.2vw, 1.1rem); color: var(--text-muted); }
+    .about-content p { text-align: left; max-width: none; }
 
-    h1 {
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      font-weight: 800;
-      /* Add a subtle glow effect */
-      text-shadow: 0 0 15px rgba(147, 112, 219, 0.4);
-    }
-    h1 span {
-      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    h2 {
-      font-size: clamp(2rem, 6vw, 3rem);
-      font-weight: 700;
-      margin-bottom: 2rem;
-      position: relative;
-      display: inline-block;
-      padding-bottom: 0.5rem;
-    }
-    /* Decorative underline for H2 */
-    h2::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60px;
-        height: 3px;
-        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-        border-radius: 2px;
-    }
-    .section-header { text-align: center; margin-bottom: 3rem; }
-
-    h3 {
-      font-size: clamp(1.4rem, 4vw, 1.8rem);
-      font-weight: 600;
-      color: var(--primary-color);
-      margin-bottom: 1rem;
-    }
-
-    p {
-      text-align: center;
-      max-width: 750px;
-      margin: 0 auto clamp(1rem, 3vw, 2rem);
-      font-size: clamp(1rem, 2.2vw, 1.1rem);
-      color: var(--text-muted);
-    }
-    .about-content p { text-align: left; }
-
-    /* Home Section */
+    /* Hero Section */
     #home {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
       min-height: 100vh;
       text-align: center;
       padding-top: var(--nav-height);
     }
-
-    #home p {
-      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-      color: var(--text-light);
-      margin-top: 1rem;
-      font-weight: 500;
+    .hero-avatar {
+      width: 150px;
+      height: 150px;
+      background-color: var(--bg-light); /* Fallback background */
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      border: 4px solid var(--primary-color);
+      margin: 0 auto 2rem;
+      box-shadow: 0 0 30px rgba(157, 132, 255, 0.5);
     }
-
+    #home p.subtitle { font-size: clamp(1.1rem, 2.5vw, 1.4rem); color: var(--text-light); margin-top: 1rem; font-weight: 500; }
+    .cta-buttons { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2.5rem; }
     .cta-button {
       display: inline-block;
-      margin-top: 2rem;
-      padding: clamp(0.8rem, 2.5vw, 1.2rem) clamp(1.8rem, 5vw, 3rem);
+      padding: clamp(0.8rem, 2.5vw, 1.1rem) clamp(1.8rem, 5vw, 2.5rem);
       background: linear-gradient(90deg, var(--primary-color), #4f42b5);
       background-size: 200% 100%;
       color: #fff;
@@ -279,73 +229,81 @@
       font-size: clamp(1rem, 2.2vw, 1.1rem);
       transition: all 0.4s ease;
       border: none;
-      box-shadow: 0 10px 30px rgba(147, 112, 219, 0.3);
+      box-shadow: 0 10px 30px rgba(157, 132, 255, 0.3);
     }
-    .cta-button:hover {
-      transform: translateY(-4px);
-      background-position: 100% 0;
-      box-shadow: 0 15px 40px rgba(0, 255, 255, 0.3);
-    }
+    .cta-button:hover { transform: translateY(-4px); background-position: 100% 0; box-shadow: 0 15px 40px rgba(0, 255, 255, 0.3); }
+    .cta-button.secondary { background: transparent; border: 2px solid var(--primary-color); box-shadow: none; }
+    .cta-button.secondary:hover { background: var(--primary-color); box-shadow: 0 10px 30px rgba(157, 132, 255, 0.4); }
 
     /* About Section */
-    #about { background-color: var(--bg-medium); }
-    .about-content {
-      max-width: 800px;
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      max-width: 900px;
       margin: 0 auto;
-      background: rgba(15, 15, 26, 0.5);
-      padding: clamp(1.5rem, 4vw, 2.5rem);
-      border-radius: var(--border-radius-md);
-      border: 1px solid rgba(147, 112, 219, 0.2);
+      align-items: center;
     }
+    @media (min-width: 768px) { .about-grid { grid-template-columns: 2fr 1fr; gap: 4rem; } }
+    .about-skills {
+      background: rgba(15, 15, 26, 0.5);
+      padding: 2rem;
+      border-radius: var(--border-radius-md);
+      border: 1px solid rgba(157, 132, 255, 0.2);
+    }
+    .about-skills h4 { font-family: var(--font-heading); color: var(--primary-color); font-size: 1.25rem; margin-bottom: 1rem; text-align: left;}
+    .about-skills ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .about-skills li { background: var(--bg-light); color: var(--text-light); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; }
 
     /* Works Section */
-    #works { background-color: var(--bg-dark); }
-    .works-subsection {
-      margin-bottom: clamp(3rem, 8vw, 5rem);
-      width: 100%;
-    }
-
+    .works-subsection { margin-bottom: clamp(3rem, 8vw, 5rem); }
     .video-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: clamp(1.5rem, 4vw, 2rem);
+      gap: clamp(1.5rem, 4vw, 2.5rem);
       margin-top: 2rem;
     }
+    .video-grid-2x2 { grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); } /* For MMV/Motion Graphics */
+    
+    .video-card { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .video-card.visible { opacity: 1; transform: translateY(0); }
 
-    .video-wrapper {
+    .video-thumbnail {
       position: relative;
       aspect-ratio: 16 / 9;
       border-radius: var(--border-radius-md);
       overflow: hidden;
-      background: var(--bg-medium);
+      background-color: var(--bg-medium);
       border: 1px solid transparent;
       transition: all 0.3s ease-out;
+      cursor: pointer;
     }
-
-    .video-wrapper:hover {
-      transform: translateY(-5px) scale(1.03);
-      box-shadow: 0 10px 30px rgba(0, 255, 255, 0.25);
-      border-color: var(--accent-color);
-    }
-
-    .video-wrapper iframe {
+    .video-thumbnail img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .video-thumbnail .play-button {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border: none;
-    }
-
-    /* Socials Section */
-    #socials { background-color: var(--bg-medium); }
-
-    .social-links-container {
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      width: 70px; height: 70px;
+      background: rgba(15, 15, 26, 0.7);
+      border-radius: 50%;
       display: flex;
-      flex-wrap: wrap;
-      gap: clamp(1rem, 3vw, 1.5rem);
       justify-content: center;
-      margin-top: 2.5rem;
+      align-items: center;
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
     }
-
+    .video-thumbnail .play-button svg { width: 30px; height: 30px; fill: #fff; transform: translateX(2px); }
+    .video-card:hover .video-thumbnail { transform: translateY(-5px) scale(1.03); box-shadow: 0 10px 30px rgba(0, 255, 255, 0.25); border-color: var(--accent-color); }
+    .video-card:hover .video-thumbnail img { transform: scale(1.1); }
+    .video-card:hover .play-button { transform: translate(-50%, -50%) scale(1.1); background: rgba(157, 132, 255, 0.8); }
+    .video-card iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+    .video-title { font-size: 1rem; color: var(--text-muted); text-align: left; margin-top: 1rem; font-weight: 500; }
+    .video-hidden { display: none; }
+    .load-more-container { text-align: center; margin-top: 3rem; }
+    .load-more-btn { /* Re-use cta-button style */ }
+    
+    /* Contact Section */
+    .social-links-container { display: flex; flex-wrap: wrap; gap: clamp(1rem, 3vw, 1.5rem); justify-content: center; margin-top: 2.5rem; }
     .social-link {
       display: inline-flex;
       align-items: center;
@@ -353,60 +311,57 @@
       padding: 0.8rem 1.8rem;
       font-size: 1rem;
       font-weight: 500;
-      font-family: var(--font-body);
       color: var(--text-light);
       text-decoration: none;
       background: var(--bg-light);
-      border: 1px solid rgba(147, 112, 219, 0.3);
+      border: 1px solid rgba(157, 132, 255, 0.3);
       border-radius: var(--border-radius-sm);
       transition: all 0.3s ease;
     }
-    .social-link svg {
-      width: 24px;
-      height: 24px;
-      fill: var(--primary-color);
-      transition: fill 0.3s ease;
-    }
-    .social-link:hover {
-      background: var(--primary-color);
-      color: #fff;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(147, 112, 219, 0.4);
-    }
+    .social-link svg { width: 24px; height: 24px; fill: var(--primary-color); transition: fill 0.3s ease; }
+    .social-link:hover { background: var(--primary-color); color: #fff; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(157, 132, 255, 0.4); }
     .social-link:hover svg { fill: #fff; }
 
     /* Footer */
-    footer {
-      background: var(--bg-dark);
-      text-align: center;
-      padding: clamp(2rem, 5vw, 3rem);
-      border-top: 1px solid rgba(147, 112, 219, 0.2);
-    }
-    footer p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin: 0;
-    }
+    footer { background: #0A0A12; text-align: center; padding: 3rem 0; border-top: 1px solid rgba(157, 132, 255, 0.2); }
+    .footer-nav { list-style: none; display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; }
+    .footer-nav a { color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; }
+    .footer-nav a:hover { color: var(--primary-color); }
+    footer .copyright { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
 
-    /* Animations: Fade in on scroll */
-    .reveal {
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 50px;
+      height: 50px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+      z-index: 990;
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+    .back-to-top:hover { background: var(--accent-color); }
+    
+    /* Reveal Animation */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* Tablet Styles */
+    /* Tablet & Mobile Styles */
     @media (max-width: 768px) {
       .menu-toggle { display: flex; }
       .nav-links {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
+        position: fixed; top: 0; right: 0; bottom: 0;
         width: min(75vw, 300px);
         background: var(--bg-medium);
         flex-direction: column;
@@ -416,11 +371,12 @@
         transform: translateX(100%);
         transition: transform 0.3s ease-in-out;
         box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+        z-index: 999;
       }
       .nav-links.active { transform: translateX(0); }
-      .nav-links a { width: 100%; }
+      .nav-links a { width: 100%; font-size: 1.1rem; }
       h1 { font-size: clamp(2.2rem, 12vw, 3.5rem); }
-      .video-grid { grid-template-columns: 1fr; }
+      .video-grid, .video-grid-2x2 { grid-template-columns: 1fr; }
     }
 
     /* Accessibility */
@@ -428,9 +384,7 @@
       * { animation: none !important; transition: none !important; }
       html { scroll-behavior: auto; }
     }
-    /* Focus Styles */
-    a:focus-visible,
-    button:focus-visible {
+    a:focus-visible, button:focus-visible {
       outline: 3px solid var(--accent-color);
       outline-offset: 3px;
       border-radius: var(--border-radius-sm);
@@ -439,10 +393,12 @@
 </head>
 <body>
 
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
   <nav class="navbar" id="navbar">
     <div class="nav-container container">
       <a href="#home" class="nav-brand">Crystoff<span>.</span></a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks" tabindex="0">
         <span></span>
         <span></span>
         <span></span>
@@ -451,159 +407,197 @@
         <li><a href="#home" class="nav-link">Home</a></li>
         <li><a href="#about" class="nav-link">About</a></li>
         <li><a href="#works" class="nav-link">Works</a></li>
-        <li><a href="#socials" class="nav-link">Contact</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
     </div>
   </nav>
 
-  <section id="home">
-    <div class="container">
-      <div class="hero-content reveal">
-        <h1>Hi, I'm <span>Crystoff</span></h1>
-        <p>Video Editor | AMVs & Creative Media</p>
-        <a href="#works" class="cta-button">View My Work</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="about">
-    <div class="container reveal">
-      <div class="section-header">
-        <h2>About Me</h2>
-      </div>
-      <div class="about-content">
-        <p>Hello! I'm Crystoff, a student passionate about technology, design, and video editing. 
-I specialize in creating engaging content such as AMVs, animations, and motion graphics. 
-The tools I use most are After Effects, Premiere Pro, and Photoshop, and I am currently learning Blender for 3D modeling.</p>
-        <p>My goal is to continue developing my video editing skills while working on creative projects that push my limits. 
-I’m always open to new opportunities—interested in commissioning me? You can find my socials below!</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="works">
-    <div class="container reveal">
-      <div class="section-header">
-        <h2>My Works</h2>
-      </div>
-
-      <div class="works-subsection">
-        <h3>Anime Music Videos (AMVs)</h3>
-        <div class="video-grid">
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/F2fqxjkD3kU" title="AMV 1" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/S5AKyKJ8O7g" title="AMV 2" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/PM-jjr5xSHs" title="AMV 3" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/4Vd-DuBWI2U" title="AMV 4" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/uJEUxqZIgQY" title="AMV 5" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/BDgWQErYuRc" title="AMV 6" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/1DL65sYs6qI" title="AMV 7" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/BVse-fHPGpI" title="AMV 8" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/RTU5WHLTSA0" title="AMV 9" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/XnAfHOiMg5Q" title="AMV 10" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/EYOfGCkKXcU" title="AMV 11" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/caJzHrKqvCU" title="AMV 12" loading="lazy" allowfullscreen></iframe></div>
+  <main>
+    <section id="home">
+      <div class="container">
+        <div class="hero-content reveal">
+          <div class="hero-avatar" aria-label="Profile picture of Crystoff"></div>
+          <h1>Hi, I'm <span>Crystoff</span></h1>
+          <p class="subtitle">Crafting compelling stories through motion and rhythm.</p>
+          <div class="cta-buttons">
+            <a href="#works" class="cta-button">View My Work</a>
+            <a href="#contact" class="cta-button secondary">Contact Me</a>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="works-subsection">
-        <h3>Manga Animation Edits (MMVs)</h3>
-        <div class="video-grid">
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/cdQ1ylyZT7Q" title="MMV 1" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/ugiuIF9OWBM" title="MMV 2" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/eNQqEoRZNTA" title="MMV 3" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/3rwz_r90Jmk" title="MMV 4" loading="lazy" allowfullscreen></iframe></div>
+    <section id="about">
+      <div class="container reveal">
+        <div class="section-header">
+          <h2>About Me</h2>
+        </div>
+        <div class="about-grid">
+            <div class="about-content">
+                <p>Hello! I'm Crystoff, a student with a deep passion for technology, design, and visual storytelling. My mission is to transform ideas into captivating digital experiences, creating everything from high-energy AMVs to fluid motion graphics.</p>
+                <p>I thrive on pushing creative boundaries and am always exploring new techniques to enhance my craft. Whether it's a personal project or a client commission, I bring dedication and an artistic eye to everything I create. Interested in working together? Let's connect!</p>
+            </div>
+            <div class="about-skills">
+                <h4>My Toolkit</h4>
+                <ul>
+                    <li>After Effects</li>
+                    <li>Premiere Pro</li>
+                    <li>Photoshop</li>
+                    <li>Blender</li>
+                    <li>DaVinci Resolve</li>
+                </ul>
+            </div>
         </div>
       </div>
+    </section>
 
-      <div class="works-subsection">
-        <h3>Motion Graphics</h3>
-        <div class="video-grid">
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/ANx3X0yW97s" title="Motion Graphics 1" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/ZeSeE6xZVmk" title="Motion Graphics 2" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/8VvxmuXYcIk" title="Motion Graphics 3" loading="lazy" allowfullscreen></iframe></div>
-          <div class="video-wrapper reveal"><iframe src="https://www.youtube.com/embed/SAw9-HoZ3EM" title="Motion Graphics 4" loading="lazy" allowfullscreen></iframe></div>
+    <section id="works">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2>My Works</h2>
+        </div>
+
+        <div class="works-subsection">
+          <h3 class="reveal">Anime Music Videos (AMVs)</h3>
+          <div class="video-grid" id="amv-grid">
+            <!-- First 6 videos are visible by default -->
+            <div class="video-card reveal"><div class="video-thumbnail" data-video-id="F2fqxjkD3kU"><img src="https://i.ytimg.com/vi/F2fqxjkD3kU/hqdefault.jpg" alt="Thumbnail for AMV video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">A Jujutsu Kaisen Edit</p></div>
+            <div class="video-card reveal"><div class="video-thumbnail" data-video-id="S5AKyKJ8O7g"><img src="https://i.ytimg.com/vi/S5AKyKJ8O7g/hqdefault.jpg" alt="Thumbnail for AMV video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Zoro - Industry Baby</p></div>
+            <div class="video-card reveal"><div class="video-thumbnail" data-video-id="PM-jjr5xSHs"><img src="https://i.ytimg.com/vi/PM-jjr5xSHs/hqdefault.jpg" alt="Thumbnail for AMV video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Gojo Satoru Edit</p></div>
+            <div class="video-card reveal"><div class="video-thumbnail" data-video-id="4Vd-DuBWI2U"><img src="https://i.ytimg.com/vi/4Vd-DuBWI2U/hqdefault.jpg" alt="Thumbnail for AMV video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Gojo Satoru - Popular</p></div>
+            <div class="video-card reveal"><div class="video-thumbnail" data-video-id="uJEUxqZIgQY"><img src="https://i.ytimg.com/vi/uJEUxqZIgQY/hqdefault.jpg" alt="Thumbnail for AMV video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Gojo Satoru - Metamorphosis</p></div>
+            <div class="video-card reveal"><div class="video-thumbnail" data-video-id="BDgWQErYuRc"><img src="https://i.ytimg.com/vi/BDgWQErYuRc/hqdefault.jpg" alt="Thumbnail for AMV video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Jujutsu Kaisen Edit</p></div>
+            <!-- Next 6 are hidden initially -->
+            <div class="video-card video-hidden"><div class="video-thumbnail" data-video-id="1DL65sYs6qI"><img src="https://i.ytimg.com/vi/1DL65sYs6qI/hqdefault.jpg" alt="Thumbnail for AMV video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Toji Fushiguro Edit</p></div>
+            <div class="video-card video-hidden"><div class="video-thumbnail" data-video-id="BVse-fHPGpI"><img src="https://i.ytimg.com/vi/BVse-fHPGpI/hqdefault.jpg" alt="Thumbnail for AMV video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Jujutsu Kaisen Season 2 Edit</p></div>
+            <div class="video-card video-hidden"><div class="video-thumbnail" data-video-id="RTU5WHLTSA0"><img src="https://i.ytimg.com/vi/RTU5WHLTSA0/hqdefault.jpg" alt="Thumbnail for AMV video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Gojo Satoru Edit</p></div>
+            <div class="video-card video-hidden"><div class="video-thumbnail" data-video-id="XnAfHOiMg5Q"><img src="https://i.ytimg.com/vi/XnAfHOiMg5Q/hqdefault.jpg" alt="Thumbnail for AMV video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">One Piece Edit</p></div>
+            <div class="video-card video-hidden"><div class="video-thumbnail" data-video-id="EYOfGCkKXcU"><img src="https://i.ytimg.com/vi/EYOfGCkKXcU/hqdefault.jpg" alt="Thumbnail for AMV video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Gojo Satoru Edit</p></div>
+            <div class="video-card video-hidden"><div class="video-thumbnail" data-video-id="caJzHrKqvCU"><img src="https://i.ytimg.com/vi/caJzHrKqvCU/hqdefault.jpg" alt="Thumbnail for AMV video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Toji Fushiguro Edit</p></div>
+          </div>
+          <div class="load-more-container reveal">
+            <button id="loadMoreBtn" class="cta-button">Show More</button>
+          </div>
+        </div>
+
+        <div class="works-subsection">
+          <h3 class="reveal">Manga Animation Edits (MMVs)</h3>
+          <div class="video-grid video-grid-2x2">
+            <div class="video-card reveal"><div class="video-thumbnail" data-video-id="cdQ1ylyZT7Q"><img src="https://i.ytimg.com/vi/cdQ1ylyZT7Q/hqdefault.jpg" alt="Thumbnail for MMV video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Jujutsu Kaisen Manga Edit</p></div>
+            <div class="video-card reveal"><div class="video-thumbnail" data-video-id="ugiuIF9OWBM"><img src="https://i.ytimg.com/vi/ugiuIF9OWBM/hqdefault.jpg" alt="Thumbnail for MMV video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Sakamoto Days Edit</p></div>
+            <div class="video-card reveal"><div class="video-thumbnail" data-video-id="eNQqEoRZNTA"><img src="https://i.ytimg.com/vi/eNQqEoRZNTA/hqdefault.jpg" alt="Thumbnail for MMV video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Jujutsu Kaisen Edit</p></div>
+            <div class="video-card reveal"><div class="video-thumbnail" data-video-id="3rwz_r90Jmk"><img src="https://i.ytimg.com/vi/3rwz_r90Jmk/hqdefault.jpg" alt="Thumbnail for MMV video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Jujutsu Kaisen Manga Animation</p></div>
+          </div>
+        </div>
+
+        <div class="works-subsection">
+          <h3 class="reveal">Motion Graphics</h3>
+          <div class="video-grid video-grid-2x2">
+            <div class="video-card reveal"><div class="video-thumbnail" data-video-id="ANx3X0yW97s"><img src="https://i.ytimg.com/vi/ANx3X0yW97s/hqdefault.jpg" alt="Thumbnail for Motion Graphics video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Motion Graphics Example 1</p></div>
+            <div class="video-card reveal"><div class="video-thumbnail" data-video-id="ZeSeE6xZVmk"><img src="https://i.ytimg.com/vi/ZeSeE6xZVmk/hqdefault.jpg" alt="Thumbnail for Motion Graphics video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Motion Graphics Example 2</p></div>
+            <div class="video-card reveal"><div class="video-thumbnail" data-video-id="8VvxmuXYcIk"><img src="https://i.ytimg.com/vi/8VvxmuXYcIk/hqdefault.jpg" alt="Thumbnail for Motion Graphics video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Motion Graphics Example 3</p></div>
+            <div class="video-card reveal"><div class="video-thumbnail" data-video-id="SAw9-HoZ3EM"><img src="https://i.ytimg.com/vi/SAw9-HoZ3EM/hqdefault.jpg" alt="Thumbnail for Motion Graphics video" loading="lazy"><div class="play-button"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div><p class="video-title">Motion Graphics Example 4</p></div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="socials">
-    <div class="container reveal">
-      <div class="section-header">
-        <h2>Connect With Me</h2>
+    <section id="contact">
+      <div class="container reveal">
+        <div class="section-header">
+          <h2>Get In Touch</h2>
+        </div>
+        <p>Find me on these platforms, or send me an email. Let's create something amazing!</p>
+        <div class="social-links-container">
+          <a href="mailto:crystoffgallardo@gmail.com" class="social-link reveal" aria-label="Send me an email">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+            Email
+          </a>
+          <a href="https://www.facebook.com/crystoff.2025/" target="_blank" rel="noopener noreferrer" class="social-link reveal" aria-label="My Facebook profile">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-1.5c-1 0-1.5.5-1.5 1.5V12h3l-.5 3h-2.5v6.8c4.56-.93 8-4.96 8-9.8z"/></svg>
+            Facebook
+          </a>
+          <a href="https://www.youtube.com/@darkjc1867/videos" target="_blank" rel="noopener noreferrer" class="social-link reveal" aria-label="My YouTube channel">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21.58 7.19c-.23-.86-.9-1.52-1.76-1.76C18.25 5 12 5 12 5s-6.25 0-7.82.43c-.86.24-1.53.9-1.76 1.76C2 8.76 2 12 2 12s0 3.24.43 4.81c.23.86.9 1.52 1.76 1.76C5.75 19 12 19 12 19s6.25 0 7.82-.43c.86-.24 1.53-.9 1.76-1.76C22 15.24 22 12 22 12s0-3.24-.42-4.81zM9.75 15.14V8.86l5.33 3.14-5.33 3.14z"/></svg>
+            YouTube
+          </a>
+          <a href="https://www.tiktok.com/@crystoff.ftw" target="_blank" rel="noopener noreferrer" class="social-link reveal" aria-label="My TikTok profile">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.03-4.83-.95-6.43-2.8-1.59-1.87-2.15-4.14-1.71-6.42.4-1.98 1.66-3.8 3.73-4.81 1.22-.59 2.58-.78 3.96-.77.24 1.54.51 3.08.75 4.61.02.01.01.01.01.01-.3.01-.59.01-.88.01-.85 0-1.68-.24-2.41-.75-1.32-.91-1.9-2.48-1.66-4.19.25-1.79 1.4-3.3 3.1-4.1.2-.09.4-.17.6-.25 1.07-.44 2.22-.67 3.39-.71z"/></svg>
+            TikTok
+          </a>
+        </div>
       </div>
-      <p>Find me on these platforms and let's create something amazing.</p>
-      <div class="social-links-container">
-        <a href="https://www.tiktok.com/@crystoff.ftw" target="_blank" rel="noopener noreferrer" class="social-link reveal">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.03-4.83-.95-6.43-2.8-1.59-1.87-2.15-4.14-1.71-6.42.4-1.98 1.66-3.8 3.73-4.81 1.22-.59 2.58-.78 3.96-.77.24 1.54.51 3.08.75 4.61.02.01.01.01.01.01-.3.01-.59.01-.88.01-.85 0-1.68-.24-2.41-.75-1.32-.91-1.9-2.48-1.66-4.19.25-1.79 1.4-3.3 3.1-4.1.2-.09.4-.17.6-.25 1.07-.44 2.22-.67 3.39-.71z"/></svg>
-          TikTok
-        </a>
-        <a href="https://www.facebook.com/crystoff.2025/" target="_blank" rel="noopener noreferrer" class="social-link reveal">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.04c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm2.25 10.1h-1.62v4.86h-2.13v-4.86h-1.12v-1.89h1.12v-1.3c0-1.02.5-2.61 2.61-2.61h1.5v1.89h-.93c-.11 0-.42.06-.42.49v1.53h1.36l-.19 1.89z"/></svg>
-          Facebook
-        </a>
-        <a href="https://www.youtube.com/@darkjc1867/videos" target="_blank" rel="noopener noreferrer" class="social-link reveal">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.04c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm5.77 6.44c.3.18.53.47.53.8v5.44c0 .33-.23.62-.53.8l-4.72 2.72c-.3.17-.68.17-1.02 0l-4.72-2.72c-.3-.18-.53-.47-.53-.8v-5.44c0-.33.23-.62.53-.8l4.72-2.72c.3-.17.68-.17 1.02 0l4.72 2.72z"/></svg>
-          YouTube
-        </a>
-      </div>
-    </div>
-  </section>
-
+    </section>
+  </main>
+  
   <footer>
     <div class="container">
-      <p>© 2025 Crystoff. Designed with passion. All rights reserved.</p>
+      <ul class="footer-nav">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#works">Works</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <p class="copyright">© 2025 Crystoff. Designed with passion. All rights reserved.</p>
     </div>
   </footer>
+
+  <button class="back-to-top" id="backToTopBtn" aria-label="Scroll to top">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-      // Mobile Menu Toggle
+      // --- Mobile Menu Logic ---
       const menuToggle = document.getElementById('menuToggle');
       const navLinks = document.getElementById('navLinks');
+      const mobileNavOverlay = document.getElementById('mobileNavOverlay');
       const navItems = document.querySelectorAll('.nav-link');
+      const body = document.body;
 
-      menuToggle.addEventListener('click', () => {
+      const toggleMenu = () => {
         const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
         menuToggle.setAttribute('aria-expanded', !isExpanded);
         menuToggle.classList.toggle('active');
         navLinks.classList.toggle('active');
-      });
+        mobileNavOverlay.classList.toggle('active');
+        body.classList.toggle('no-scroll');
+      };
+      
+      menuToggle.addEventListener('click', toggleMenu);
+      mobileNavOverlay.addEventListener('click', toggleMenu);
 
-      // Close menu when clicking a link
       navItems.forEach(item => {
         item.addEventListener('click', () => {
-          menuToggle.setAttribute('aria-expanded', 'false');
-          menuToggle.classList.remove('active');
-          navLinks.classList.remove('active');
+          if (navLinks.classList.contains('active')) {
+            toggleMenu();
+          }
         });
       });
       
-      // Close menu when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!navLinks.contains(e.target) && !menuToggle.contains(e.target) && navLinks.classList.contains('active')) {
-          menuToggle.setAttribute('aria-expanded', 'false');
-          menuToggle.classList.remove('active');
-          navLinks.classList.remove('active');
+      // Close menu with Escape key for accessibility
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+          toggleMenu();
         }
       });
 
-      // Active nav link on scroll
-      const sections = document.querySelectorAll('section');
+
+      // --- Active Nav Link on Scroll ---
+      const sections = document.querySelectorAll('main section');
       function updateActiveLink() {
-        let currentSection = '';
+        let currentSectionId = '';
         sections.forEach(section => {
           const sectionTop = section.offsetTop;
-          if (window.scrollY >= sectionTop - (document.documentElement.clientHeight * 0.3) ) { // Adjust trigger point
-            currentSection = section.getAttribute('id');
+          if (window.scrollY >= sectionTop - (window.innerHeight * 0.4)) {
+            currentSectionId = section.getAttribute('id');
           }
         });
 
         navItems.forEach(link => {
           link.classList.remove('active');
-          const linkHref = link.getAttribute('href');
-          if (linkHref && linkHref.substring(1) === currentSection) {
+          if (link.getAttribute('href') === `#${currentSectionId}`) {
             link.classList.add('active');
           }
         });
@@ -611,39 +605,69 @@ I’m always open to new opportunities—interested in commissioning me? You can
       window.addEventListener('scroll', updateActiveLink);
       updateActiveLink(); // Initial check
 
-      // Hide/Show navbar on scroll
-      let lastScroll = 0;
-      const navbar = document.getElementById('navbar');
-      window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        if (currentScroll <= 0) {
-          navbar.style.transform = 'translateY(0)';
-          return;
-        }
-        if (currentScroll > lastScroll && !navLinks.classList.contains('active')) {
-          navbar.style.transform = 'translateY(-100%)'; // Scroll Down
-        } else {
-          navbar.style.transform = 'translateY(0)'; // Scroll Up
-        }
-        lastScroll = currentScroll;
+
+      // --- Load Videos on Click (Performance Improvement) ---
+      const videoGrid = document.querySelector('#works');
+      videoGrid.addEventListener('click', (e) => {
+          const thumbnail = e.target.closest('.video-thumbnail');
+          if (!thumbnail) return;
+
+          const videoId = thumbnail.dataset.videoId;
+          if (!videoId) return;
+
+          const iframe = document.createElement('iframe');
+          iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+          iframe.title = "YouTube video player";
+          iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+          iframe.allowFullscreen = true;
+          
+          thumbnail.innerHTML = ''; // Clear the thumbnail content
+          thumbnail.appendChild(iframe);
       });
 
-      // Intersection Observer for scroll animations
-      const revealElements = document.querySelectorAll('.reveal');
+
+      // --- "Show More" Button for AMVs ---
+      const loadMoreBtn = document.getElementById('loadMoreBtn');
+      const amvGrid = document.getElementById('amv-grid');
+      loadMoreBtn.addEventListener('click', () => {
+        const hiddenVideos = amvGrid.querySelectorAll('.video-hidden');
+        hiddenVideos.forEach(video => {
+          video.classList.remove('video-hidden');
+          // Trigger reveal animation
+          setTimeout(() => video.classList.add('visible'), 10);
+        });
+        loadMoreBtn.style.display = 'none'; // Hide button after clicking
+      });
+
+
+      // --- Intersection Observer for Scroll Animations ---
+      const revealElements = document.querySelectorAll('.reveal, .video-card');
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            // Optional: unobserve after revealing to improve performance
-            observer.unobserve(entry.target); 
+            observer.unobserve(entry.target);
           }
         });
-      }, {
-        threshold: 0.1 // Trigger when 10% of the element is visible
-      });
+      }, { threshold: 0.1 });
       revealElements.forEach(el => observer.observe(el));
-      
+
+
+      // --- Back to Top Button ---
+      const backToTopBtn = document.getElementById('backToTopBtn');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          backToTopBtn.classList.add('visible');
+        } else {
+          backToTopBtn.classList.remove('visible');
+        }
+      });
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
     });
   </script>
+
 </body>
 </html>
