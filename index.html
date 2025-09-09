@@ -3,8 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Crystoff - Professional Video Editor specializing in AMVs, MMVs, and Creative Media">
   <title>Crystoff | Video Editor</title>
   <style>
+    /* CSS Variables for Consistency */
+    :root {
+      --primary-color: #f39c12;
+      --bg-dark: #111;
+      --bg-darker: #0f0f0f;
+      --bg-darkest: #0a0a0a;
+      --text-light: #eee;
+      --text-muted: #ccc;
+      --text-dim: #888;
+      --max-width: 1200px;
+      --nav-height: 60px;
+      --section-padding: clamp(60px, 10vh, 100px);
+    }
+
     /* Reset and Base Styles */
     * {
       margin: 0;
@@ -14,109 +29,220 @@
 
     html {
       scroll-behavior: smooth;
+      font-size: 16px;
     }
 
     body {
-      font-family: 'Arial', sans-serif;
-      background: #111;
-      color: #eee;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
       line-height: 1.6;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .container {
       width: 100%;
-      max-width: 1200px;
+      max-width: var(--max-width);
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 clamp(1rem, 4vw, 2rem);
     }
 
     /* Navigation */
     .navbar {
       position: fixed;
       top: 0;
+      left: 0;
       right: 0;
       z-index: 1000;
-      padding: 15px 20px;
-      background: rgba(17, 17, 17, 0.9);
+      background: rgba(17, 17, 17, 0.95);
       backdrop-filter: blur(10px);
-      border-radius: 0 0 0 15px;
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(243, 156, 18, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .nav-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 clamp(1rem, 4vw, 2rem);
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: var(--text-light);
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
     }
 
     .nav-links {
       display: flex;
-      gap: 15px;
+      gap: clamp(0.5rem, 2vw, 1.5rem);
       list-style: none;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      align-items: center;
     }
 
     .nav-links a {
-      color: #eee;
+      color: var(--text-light);
       text-decoration: none;
-      font-weight: 600;
-      padding: 6px 12px;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
       border-radius: 6px;
       transition: all 0.3s ease;
-      font-size: 0.95rem;
+      font-size: clamp(0.875rem, 1.5vw, 1rem);
+      white-space: nowrap;
     }
 
-    .nav-links a:hover {
-      color: #f39c12;
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary-color);
       background: rgba(243, 156, 18, 0.1);
     }
 
-    /* Section Base */
+    /* Sections */
     section {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 80px 0;
+      padding: var(--section-padding) 0;
+      position: relative;
     }
 
+    /* Typography */
     h1, h2, h3 {
       text-align: center;
-      color: #f39c12;
-      margin-bottom: 20px;
+      color: var(--primary-color);
+      margin-bottom: clamp(1rem, 3vw, 1.5rem);
+      line-height: 1.2;
     }
 
-    h1 { font-size: 3rem; }
-    h2 { font-size: 2.3rem; margin-bottom: 30px; }
-    h3 { font-size: 1.8rem; margin-bottom: 25px; }
+    h1 { 
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      font-weight: 700;
+    }
+    
+    h2 { 
+      font-size: clamp(1.5rem, 6vw, 2.5rem);
+      margin-bottom: clamp(1.5rem, 4vw, 2rem);
+    }
+    
+    h3 { 
+      font-size: clamp(1.25rem, 4vw, 1.8rem);
+      margin-bottom: clamp(1rem, 3vw, 1.5rem);
+    }
 
     p {
       text-align: center;
       max-width: 700px;
-      margin: 0 auto 20px;
-      font-size: 1.05rem;
+      margin: 0 auto clamp(1rem, 3vw, 1.5rem);
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      line-height: 1.7;
     }
 
-    /* Home */
+    /* Home Section */
     #home {
-      background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
-      padding-top: 100px;
+      background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a1a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      padding-top: calc(var(--nav-height) + 2rem);
+    }
+
+    .hero-content {
+      animation: fadeInUp 1s ease;
     }
 
     #home p {
-      font-size: 1.2rem;
-      color: #ccc;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--text-muted);
+      margin-top: 1rem;
     }
 
-    /* About */
-    #about { background: #0f0f0f; }
+    .cta-button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.5rem);
+      background: var(--primary-color);
+      color: var(--bg-dark);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      transition: all 0.3s ease;
+    }
 
-    /* Works */
-    #works { background: #111; }
-    .works-subsection { margin-bottom: 50px; width: 100%; }
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(243, 156, 18, 0.3);
+    }
+
+    /* About Section */
+    #about {
+      background: var(--bg-darker);
+      padding-top: calc(var(--nav-height) + 2rem);
+    }
+
+    .about-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Works Section */
+    #works {
+      background: var(--bg-dark);
+      padding-top: calc(var(--nav-height) + 2rem);
+    }
+
+    .works-subsection {
+      margin-bottom: clamp(2rem, 6vw, 4rem);
+      width: 100%;
+    }
 
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: clamp(1rem, 3vw, 1.5rem);
+      margin-top: clamp(1rem, 3vw, 2rem);
     }
 
     .video-wrapper {
@@ -125,113 +251,249 @@
       aspect-ratio: 16 / 9;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      background: var(--bg-darker);
     }
 
     .video-wrapper:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 25px rgba(243, 156, 18, 0.25);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(243, 156, 18, 0.3);
     }
 
-    iframe { width: 100%; height: 100%; border: none; }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
 
-    .coming-soon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    /* Socials Section */
+    #socials {
+      background: var(--bg-darker);
       text-align: center;
-      padding: 50px 20px;
-      background: rgba(243, 156, 18, 0.08);
-      border: 2px dashed #f39c12;
-      border-radius: 12px;
-      margin-top: 20px;
+      padding-top: calc(var(--nav-height) + 2rem);
     }
 
-    .coming-soon p {
-      color: #f39c12;
-      font-size: 1.1rem;
-      margin: 0;
+    .social-links-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: clamp(0.75rem, 2vw, 1rem);
+      justify-content: center;
+      margin-top: 2rem;
     }
 
-    /* Socials */
-    #socials { background: #0f0f0f; text-align: center; }
     .social-link {
-      display: inline-block;
-      margin: 10px;
-      padding: 12px 24px;
-      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(0.6rem, 2vw, 0.8rem) clamp(1.2rem, 3vw, 1.8rem);
+      font-size: clamp(0.9rem, 2vw, 1rem);
       font-weight: 600;
-      color: #f39c12;
+      color: var(--primary-color);
       text-decoration: none;
-      border: 2px solid #f39c12;
+      border: 2px solid var(--primary-color);
       border-radius: 8px;
-      transition: 0.3s;
+      transition: all 0.3s ease;
+      min-width: 120px;
     }
 
     .social-link:hover {
-      background: #f39c12;
-      color: #111;
+      background: var(--primary-color);
+      color: var(--bg-dark);
       transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(243, 156, 18, 0.3);
     }
 
     /* Footer */
     footer {
-      background: #0a0a0a;
+      background: var(--bg-darkest);
       text-align: center;
-      padding: 20px;
+      padding: clamp(1.5rem, 4vw, 2rem);
       border-top: 1px solid #333;
     }
-    footer p { font-size: 0.9rem; color: #888; }
 
-    /* Mobile Optimizations */
-    @media (max-width: 768px) {
-      h1 { font-size: 2.5rem; }
-      h2 { font-size: 2rem; }
-      h3 { font-size: 1.5rem; }
-      p { font-size: 1rem; }
-      .nav-links { justify-content: center; }
+    footer p {
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+      color: var(--text-dim);
     }
 
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Tablet Styles */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: var(--nav-height);
+        left: 0;
+        right: 0;
+        background: rgba(17, 17, 17, 0.98);
+        flex-direction: column;
+        padding: 1rem;
+        gap: 0.5rem;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .nav-links.active {
+        transform: translateX(0);
+      }
+
+      .nav-links a {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 1rem;
+        text-align: center;
+      }
+
+      .video-grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      }
+
+      section {
+        padding: clamp(3rem, 8vw, 5rem) 0;
+      }
+    }
+
+    /* Mobile Styles */
     @media (max-width: 480px) {
-      h1 { font-size: 2rem; }
-      h2 { font-size: 1.6rem; }
-      h3 { font-size: 1.3rem; }
-      p { font-size: 0.95rem; }
-      .video-grid { grid-template-columns: 1fr; }
-      .social-link { font-size: 0.9rem; padding: 10px 20px; }
+      .video-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .social-links-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .social-link {
+        width: 100%;
+        min-width: unset;
+      }
+
+      .works-subsection {
+        margin-bottom: 2rem;
+      }
+    }
+
+    /* Large Desktop */
+    @media (min-width: 1440px) {
+      :root {
+        font-size: 18px;
+      }
+
+      .video-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      }
+    }
+
+    /* Landscape Mobile */
+    @media (max-height: 600px) and (orientation: landscape) {
+      section {
+        min-height: auto;
+        padding: 3rem 0;
+      }
+
+      #home {
+        min-height: 100vh;
+      }
+
+      .nav-links {
+        flex-direction: row;
+      }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    /* Focus Styles */
+    a:focus,
+    button:focus {
+      outline: 2px solid var(--primary-color);
+      outline-offset: 2px;
+    }
+
+    /* Loading State for Videos */
+    .video-wrapper::before {
+      content: "Loading...";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      z-index: -1;
     }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar">
-    <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About Me</a></li>
-      <li><a href="#works">My Works</a></li>
-      <li><a href="#socials">Socials</a></li>
-    </ul>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-brand">Crystoff</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#works" class="nav-link">Works</a></li>
+        <li><a href="#socials" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <!-- Home -->
+  <!-- Home Section -->
   <section id="home">
     <div class="container">
-      <h1>Hi, I'm Crystoff</h1>
-      <p>Video Editor | AMVs & Creative Media</p>
+      <div class="hero-content">
+        <h1>Hi, I'm Crystoff</h1>
+        <p>Video Editor | AMVs & Creative Media</p>
+        <a href="#works" class="cta-button">View My Work</a>
+      </div>
     </div>
   </section>
 
-  <!-- About -->
+  <!-- About Section -->
   <section id="about">
     <div class="container">
       <h2>About Me</h2>
-      <p>Hello! I'm Crystoff, a video editor with a passion for bringing stories to life through visuals and music. While I specialize in anime music videos (AMVs), I also edit real-life content and other creative projects.</p>
-      <p>The skills I've honed in anime editing—timing, pacing, and visual storytelling—translate directly into live-action and other editing fields. My main tool is <strong>Adobe After Effects</strong>, and I've been actively editing for over a year.</p>
+      <div class="about-content">
+        <p>Hello! I'm Crystoff, a video editor with a passion for bringing stories to life through visuals and music. While I specialize in anime music videos (AMVs), I also edit real-life content and other creative projects.</p>
+        <p>The skills I've honed in anime editing—timing, pacing, and visual storytelling—translate directly into live-action and other editing fields. My main tool is <strong>Adobe After Effects</strong>, and I've been actively editing for over a year.</p>
+      </div>
     </div>
   </section>
 
-  <!-- Works -->
+  <!-- Works Section -->
   <section id="works">
     <div class="container">
       <h2>My Works</h2>
@@ -240,18 +502,42 @@
       <div class="works-subsection">
         <h3>Anime Music Videos (AMVs)</h3>
         <div class="video-grid">
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/F2fqxjkD3kU" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/S5AKyKJ8O7g" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/PM-jjr5xSHs" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/4Vd-DuBWI2U" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/uJEUxqZIgQY" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/BDgWQErYuRc" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/1DL65sYs6qI" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/BVse-fHPGpI" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/RTU5WHLTSA0" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/XnAfHOiMg5Q" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/EYOfGCkKXcU" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/caJzHrKqvCU" allowfullscreen></iframe></div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/F2fqxjkD3kU" title="AMV 1" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/S5AKyKJ8O7g" title="AMV 2" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/PM-jjr5xSHs" title="AMV 3" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/4Vd-DuBWI2U" title="AMV 4" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/uJEUxqZIgQY" title="AMV 5" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/BDgWQErYuRc" title="AMV 6" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/1DL65sYs6qI" title="AMV 7" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/BVse-fHPGpI" title="AMV 8" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/RTU5WHLTSA0" title="AMV 9" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/XnAfHOiMg5Q" title="AMV 10" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/EYOfGCkKXcU" title="AMV 11" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/caJzHrKqvCU" title="AMV 12" loading="lazy" allowfullscreen></iframe>
+          </div>
         </div>
       </div>
 
@@ -259,10 +545,18 @@
       <div class="works-subsection">
         <h3>Manga Animation Edits (MMVs)</h3>
         <div class="video-grid">
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/cdQ1ylyZT7Q" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/ugiuIF9OWBM" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/eNQqEoRZNTA" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/3rwz_r90Jmk" allowfullscreen></iframe></div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/cdQ1ylyZT7Q" title="MMV 1" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/ugiuIF9OWBM" title="MMV 2" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/eNQqEoRZNTA" title="MMV 3" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/3rwz_r90Jmk" title="MMV 4" loading="lazy" allowfullscreen></iframe>
+          </div>
         </div>
       </div>
 
@@ -270,23 +564,33 @@
       <div class="works-subsection">
         <h3>Motion Graphics</h3>
         <div class="video-grid">
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/ANx3X0yW97s" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/ZeSeE6xZVmk" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/8VvxmuXYcIk" allowfullscreen></iframe></div>
-          <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/SAw9-HoZ3EM" allowfullscreen></iframe></div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/ANx3X0yW97s" title="Motion Graphics 1" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/ZeSeE6xZVmk" title="Motion Graphics 2" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/8VvxmuXYcIk" title="Motion Graphics 3" loading="lazy" allowfullscreen></iframe>
+          </div>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/SAw9-HoZ3EM" title="Motion Graphics 4" loading="lazy" allowfullscreen></iframe>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Socials -->
+  <!-- Socials Section -->
   <section id="socials">
     <div class="container">
       <h2>Connect With Me</h2>
       <p>Find me on these platforms:</p>
-      <a href="https://www.tiktok.com/@crystoff.ftw" target="_blank" class="social-link">TikTok</a>
-      <a href="https://www.facebook.com/crystoff.2025/" target="_blank" class="social-link">Facebook</a>
-      <a href="https://www.youtube.com/@darkjc1867/videos" target="_blank" class="social-link">YouTube</a>
+      <div class="social-links-container">
+        <a href="https://www.tiktok.com/@crystoff.ftw" target="_blank" rel="noopener noreferrer" class="social-link">TikTok</a>
+        <a href="https://www.facebook.com/crystoff.2025/" target="_blank" rel="noopener noreferrer" class="social-link">Facebook</a>
+        <a href="https://www.youtube.com/@darkjc1867/videos" target="_blank" rel="noopener noreferrer" class="social-link">YouTube</a>
+      </div>
     </div>
   </section>
 
@@ -296,5 +600,78 @@
       <p>© 2025 Crystoff. All rights reserved.</p>
     </div>
   </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    const navItems = document.querySelectorAll('.nav-link');
+
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Active nav link on scroll
+    const sections = document.querySelectorAll('section');
+    
+    function updateActiveLink() {
+      const scrollY = window.pageYOffset;
+      
+      sections.forEach(section => {
+        const sectionHeight = section.offsetHeight;
+        const sectionTop = section.offsetTop - 100;
+        const sectionId = section.getAttribute('id');
+        
+        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+          navItems.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${sectionId}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveLink);
+
+    // Hide/Show navbar on scroll
+    let lastScroll = 0;
+    const navbar = document.getElementById('navbar');
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll <= 0) {
+        navbar.style.transform = 'translateY(0)';
+        return;
+      }
+      
+      if (currentScroll > lastScroll && !navLinks.classList.contains('active')) {
+        // Scrolling down
+        navbar.style.transform = 'translateY(-100%)';
+      } else {
+        // Scrolling up
+        navbar.style.transform = 'translateY(0)';
+      }
+      
+      lastScroll = currentScroll;
+    });
+
+    // Smooth scroll for CTA button
+    document.querySelector('.cta-button').addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelector('#works').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>
