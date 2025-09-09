@@ -10,48 +10,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   
+  <noscript>
+    <style>
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    </style>
+  </noscript>
   <style>
     /*
     ========================================
     MODERN & ARTISTIC THEME IMPLEMENTATION
-    ========================================
-
-    1.  **Color Palette & Visual Identity**:
-        -   Vibrant violet and cyan on a deep navy background for a modern, artistic feel.
-        -   Radial gradients add depth and focus to sections.
-        -   High-contrast colors ensure excellent readability (WCAG AA compliant).
-
-    2.  **Typography & Text Hierarchy**:
-        -   'Poppins' for bold, stylish headlines.
-        -   'Inter' for clean, highly readable body text.
-        -   Increased letter-spacing and line-height create a spacious, professional look.
-
-    3.  **Layout & Spacing**:
-        -   Generous padding and white space for an uncluttered, premium feel.
-        -   Consistent grid layout is maintained and enhanced with visual dividers.
-
-    4.  **Imagery & Graphics**:
-        -   A subtle, dotted background pattern adds texture without being distracting.
-        -   SVG icons are now used for social links, making them instantly recognizable.
-        -   Decorative elements like gradient underlines on headings add flair.
-
-    5.  **Animations & Interactivity**:
-        -   Sections and elements now fade in smoothly as you scroll.
-        -   Buttons, links, and video cards have enhanced hover effects with glows and subtle transformations.
-        -   The CTA button has a dynamic gradient background that shifts on hover.
-
-    6.  **Navigation & Usability**:
-        -   Navigation remains simple and sticky, with a refined, modern style.
-        -   Buttons and CTAs are visually distinct with the new accent color.
-
-    7.  **Content Presentation**:
-        -   Section headings have a new gradient underline to guide the user's eye.
-        -   Video cards have been redesigned for a sleeker appearance.
-
-    8.  **Consistency & Branding**:
-        -   The new theme is applied consistently across all elements using CSS variables.
-        -   The vibrant color scheme and typography create a strong, memorable brand identity.
-
     ========================================
     */
 
@@ -613,14 +583,15 @@
         let currentSection = '';
         sections.forEach(section => {
           const sectionTop = section.offsetTop;
-          if (window.scrollY >= sectionTop - (var(--nav-height) + 50)) {
+          if (window.scrollY >= sectionTop - (document.documentElement.clientHeight * 0.3) ) { // Adjust trigger point
             currentSection = section.getAttribute('id');
           }
         });
 
         navItems.forEach(link => {
           link.classList.remove('active');
-          if (link.getAttribute('href').substring(1) === currentSection) {
+          const linkHref = link.getAttribute('href');
+          if (linkHref && linkHref.substring(1) === currentSection) {
             link.classList.add('active');
           }
         });
@@ -651,8 +622,8 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            // Optional: unobserve after revealing
-            // observer.unobserve(entry.target); 
+            // Optional: unobserve after revealing to improve performance
+            observer.unobserve(entry.target); 
           }
         });
       }, {
